@@ -37,3 +37,9 @@ jdbcmysql:
   username: rapns_test
   password: ""
   encoding: utf8
+
+jdbch2:
+  adapter: h2
+  url: jdbc:h2:file:tmp/rapns_test;AUTO_SERVER=TRUE
+  pool: 128
+  timeout: 5000
