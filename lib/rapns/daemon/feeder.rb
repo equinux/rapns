@@ -47,6 +47,8 @@ module Rapns
               Rapns::Daemon::AppRunner.enqueue(notification)
               reflect(:notification_enqueued, notification)
             end
+
+            Rapns::Daemon::AppRunner.sync
           end
         rescue StandardError => e
           Rapns::Daemon.logger.error(e)
