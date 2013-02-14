@@ -1,5 +1,6 @@
 class PGError < StandardError; end if !defined?(PGError)
 class Mysql; class Error < StandardError; end; end if !defined?(Mysql)
+class SQLite3; class Exception < StandardError; end; end if !defined?(SQLite3)
 module Mysql2; class Error < StandardError; end; end if !defined?(Mysql2)
 module ActiveRecord; end
 class ActiveRecord::JDBCError < StandardError; end if !defined?(ActiveRecord::JDBCError)
