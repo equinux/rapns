@@ -8,7 +8,7 @@ module Rapns
   module Daemon
     module DatabaseReconnectable
       ADAPTER_ERRORS = [ActiveRecord::StatementInvalid, PGError, Mysql::Error,
-                        Mysql2::Error, ActiveRecord::JDBCError]
+                        Mysql2::Error, ActiveRecord::JDBCError, SQLite3::Exception]
 
       def with_database_reconnect_and_retry
         begin
