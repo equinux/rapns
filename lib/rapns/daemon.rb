@@ -81,7 +81,7 @@ module Rapns
       end
 
       if count == 0
-        logger.warn("You have not created an app yet. See https://github.com/ileitch/rapns for instructions.")
+        logger.info("You have not created an app yet. See https://github.com/ileitch/rapns for instructions.")
       end
 
       if File.exists?(File.join(Rails.root, 'config', 'rapns', 'rapns.yml'))

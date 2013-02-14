@@ -96,9 +96,9 @@ describe Rapns::Daemon, "when starting" do
     Rapns::Daemon.logger.should == logger
   end
 
-  it 'prints a warning if there are no apps' do
+  it 'prints a info if there are no apps' do
     Rapns::App.stub(:count => 0)
-    logger.should_receive(:warn).any_number_of_times
+    logger.should_receive(:info).any_number_of_times
     Rapns::Daemon.start
   end
 
