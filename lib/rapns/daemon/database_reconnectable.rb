@@ -1,4 +1,7 @@
 class PGError < StandardError; end if !defined?(PGError)
+if not defined?(SQLite3).nil?
+  module SQLite3; class Exception < StandardError; end; end
+end
 class Mysql; class Error < StandardError; end; end if !defined?(Mysql)
 if not defined?(SQLite3).nil?
   module SQLite3; class Exception < StandardError; end; end 
