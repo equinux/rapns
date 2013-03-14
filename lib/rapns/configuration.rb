@@ -9,7 +9,7 @@ module Rapns
 
   CONFIG_ATTRS = [:foreground, :push_poll, :feedback_poll, :embedded,
     :airbrake_notify, :check_for_errors, :pid_file, :batch_size,
-    :push, :logger]
+    :push, :logger, :app_sync_interval]
 
   class ConfigurationWithoutDefaults < Struct.new(*CONFIG_ATTRS)
   end
@@ -69,6 +69,7 @@ module Rapns
 
       self.push_poll = 2
       self.feedback_poll = 60
+      self.app_sync_interval = 90
       self.airbrake_notify = true
       self.check_for_errors = true
       self.batch_size = 5000
