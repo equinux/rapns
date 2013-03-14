@@ -36,8 +36,12 @@ module Rapns
     end
 
     def self.start
-      self.logger = Logger.new(:foreground => Rapns.config.foreground,
-                               :airbrake_notify => Rapns.config.airbrake_notify)
+      if Rapns.config.logger
+        self.logger = Rapns.config.logger
+      else
+        self.logger = Logger.new(:foreground => Rapns.config.foreground,
+                                 :airbrake_notify => Rapns.config.airbrake_notify)
+      end
 
       setup_signal_traps if trap_signals?
 
