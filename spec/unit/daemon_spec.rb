@@ -6,7 +6,8 @@ describe Rapns::Daemon, "when starting" do
   let(:certificate) { stub }
   let(:password) { stub }
   let(:config) { stub(:pid_file => nil, :airbrake_notify => false,
-    :foreground => true, :embedded => false, :push => false) }
+    :foreground => true, :embedded => false, :push => false,
+    :app_sync_interval => 60, :logger => nil) }
   let(:logger) { stub(:info => nil, :error => nil, :warn => nil) }
 
   before do
@@ -134,12 +135,14 @@ end
 
 describe Rapns::Daemon, "when being shutdown" do
   let(:config) { stub(:pid_file => '/rails_root/rapns.pid') }
+  let(:logger) { stub(:info => nil, :error => nil, :warn => nil) }
 
   before do
     Rapns.stub(:config => config)
     Rapns::Daemon.stub(:puts => nil)
     Rapns::Daemon::Feeder.stub(:stop)
     Rapns::Daemon::AppRunner.stub(:stop)
+    Rapns::Daemon::AppSync.stub(:stop, :app_sync_interval => 60)
   end
 
   # These tests do not work on JRuby.
@@ -164,6 +167,11 @@ describe Rapns::Daemon, "when being shutdown" do
 
   it "stops the app runners" do
     Rapns::Daemon::AppRunner.should_receive(:stop)
+    Rapns::Daemon.shutdown
+  end
+
+  it "stops the app sync" do
+    Rapns::Daemon::AppSync.should_receive(:stop)
     Rapns::Daemon.shutdown
   end
 

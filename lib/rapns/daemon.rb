@@ -54,16 +54,15 @@ module Rapns
       write_pid_file
       ensure_upgraded
       AppRunner.sync
-      @app_sync = AppSync.new
-      @app_sync.start
       Feeder.start
+      AppSync.start
     end
 
     def self.shutdown(quiet = false)
       puts "\nShutting down..." unless quiet
       Feeder.stop
       AppRunner.stop
-      @app_sync.stop unless @app_sync.nil?
+      AppSync.stop
       delete_pid_file
     end
 

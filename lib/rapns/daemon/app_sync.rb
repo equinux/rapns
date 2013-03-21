@@ -3,6 +3,21 @@ module Rapns
     class AppSync
       include InterruptibleSleep
 
+      class << self
+        attr_accessor :app_sync
+      end
+
+      @app_sync = nil
+
+      def self.start
+        app_sync = AppSync.new
+        app_sync.start
+      end
+
+      def self.stop
+        app_sync.stop if app_sync
+      end
+
       def start
         Rapns::Daemon.logger.info("Started app sync.")
         @thread = Thread.new do
@@ -18,7 +33,6 @@ module Rapns
         @stop = true
         interrupt_sleep
         @thread.join if @thread
-        Rapns::Daemon.logger.info("Stopped app sync.")
       end
 
       def sync_apps
