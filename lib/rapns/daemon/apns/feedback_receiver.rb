@@ -43,6 +43,8 @@ module Rapns
               timestamp, device_token = parse_tuple(tuple)
               create_feedback(timestamp, device_token)
             end
+          rescue Errno::EPIPE, Errno::ETIMEDOUT, OpenSSL::SSL::SSLError => e
+            Rapns::Daemon.logger.info("[#{@app.name}] Lost connection to #{@host}:#{@port} (#{e.class.name}), retrying in #{@poll} seconds.")
           rescue StandardError => e
             Rapns::Daemon.logger.error(e)
           ensure
