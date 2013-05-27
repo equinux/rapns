@@ -2,8 +2,6 @@ module Rapns
   class App < ActiveRecord::Base
     self.table_name = 'rapns_apps'
 
-    attr_accessible :name, :environment, :certificate, :password, :connections, :auth_key
-
     has_many :notifications, :class_name => 'Rapns::Notification'
 
     validates :name, :presence => true, :uniqueness => { :scope => [:type, :environment] }
